@@ -1,4 +1,4 @@
-public class AVLTree {
+class AVLTree {
     private Node root;
 
     private class Node {
@@ -136,5 +136,19 @@ public class AVLTree {
             printPostorderRecursive(node.right);
             System.out.print(node.value + " ");
         }
+    }
+}
+
+public class main{
+    public static void main(String []args){
+        AVLTree data = new AVLTree();
+        data.insert(5);
+        data.insert(2);
+        data.insert(7);
+        data.insert(6);
+        data.insert(3);
+        data.insert(9);
+        data.insert(4);
+        data.printPreorder();
     }
 }
