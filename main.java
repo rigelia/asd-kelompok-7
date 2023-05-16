@@ -1,3 +1,4 @@
+import java.util.Scanner;
 class AVLTree {
     private Node root;
 
@@ -137,18 +138,63 @@ class AVLTree {
             System.out.print(node.value + " ");
         }
     }
+
+    public boolean cariData(int nilai) {
+        return dataRecursive(root, nilai);
+    }
+
+    private boolean dataRecursive(Node node, int nilai) {
+        if (node == null)
+            return false;
+
+        if (nilai == node.value)
+            return true;
+        if (nilai < node.value)
+            return dataRecursive(node.left, nilai);
+        else
+            return dataRecursive(node.right, nilai);
+    }
+
+    public int cariKedalaman(int value) {
+        return kedalamanRecursive(root, value, 1);
+    }
+
+    private int kedalamanRecursive(Node node, int nilai, int kedalaman) {
+        if (node == null)
+            return -1;
+
+        if (nilai == node.value)
+            return kedalaman;
+        if (nilai < node.value)
+            return kedalamanRecursive(node.left, nilai, kedalaman + 1);
+        else
+            return kedalamanRecursive(node.right, nilai, kedalaman + 1);
+    }
 }
 
 public class main{
-    public static void main(String []args){
-        AVLTree data = new AVLTree();
-        data.insert(5);
-        data.insert(2);
-        data.insert(7);
-        data.insert(6);
-        data.insert(3);
-        data.insert(9);
-        data.insert(4);
-        data.printPreorder();
+    public static void main(String []args) {
+        Scanner in = new Scanner(System.in);
+        AVLTree item = new AVLTree();
+        item.insert(5);
+        item.insert(2);
+        item.insert(7);
+        item.insert(6);
+        item.insert(3);
+        item.insert(9);
+        item.insert(4);
+        item.printPreorder();
+
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Data yang ingin dicari");
+            int data = in.nextInt();
+            boolean ada = item.cariData(data);
+            if (ada) {
+                int kedalaman = item.cariKedalaman(data);
+                System.out.println("Data " + data + " ditemukan dalam AVL Tree pada kedalaman " + kedalaman +"\n");
+            } else {
+                System.out.println("Data " + data + " tidak ditemukan dalam AVL Tree \n");
+            }
+        }
     }
 }
